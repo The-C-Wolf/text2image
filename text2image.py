@@ -13,13 +13,13 @@ import os
 import glob
 import argparse
 
-import nltk
+# import nltk
 from nltk import tokenize
 
-nltk.download("stopwords")
-nltk.download("wordnet")
-nltk.download("punkt")
-nltk.download("averaged_perceptron_tagger")
+# nltk.download("stopwords")
+# nltk.download("wordnet")
+# nltk.download("punkt")
+# nltk.download("averaged_perceptron_tagger")
 
 
 ap = argparse.ArgumentParser()
@@ -37,6 +37,14 @@ ap.add_argument(
     type=str,
     default="./text/images/",
     help="name of the output folder (subfolder of text folder)",
+)
+
+ap.add_argument(
+    "-l",
+    "--language",
+    type=str,
+    default="german",
+    help="language of the text",
 )
 
 ap.add_argument(
@@ -237,7 +245,7 @@ def build_images(lines, size, width, pictures=[], **kwargs):
     else:
         lines_to_consider = lines[0:size]
         rest_lines = lines[size:]
-        sentences = tokenize.sent_tokenize(unwrap(lines_to_consider), language="german")
+        sentences = tokenize.sent_tokenize(unwrap(lines_to_consider), language=ARGS["language"])
         if not sentences[-1].endswith("."):
             # import pdb;pdb.set_trace()
             if (
